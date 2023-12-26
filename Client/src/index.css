@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (min-width: 768px) {
+  .grid-responsive {
+    width: 70%;
+    height: 70vh;
+  }
+}
