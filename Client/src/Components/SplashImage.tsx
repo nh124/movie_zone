@@ -51,7 +51,7 @@ const SplashImage = () => {
   }, [window.innerWidth]);
 
   return (
-    <div className="w-full h-[500px] overflow-hidden relative flex flex-row sm:h-[700px] duration-300 rounded-lg">
+    <div className="w-full h-[300px] overflow-hidden relative flex flex-row sm:h-[400px] duration-300 rounded-lg">
       <div className="lg:relative absolute z-20 sm:w-[75%] w-[100%] text-white flex flex-col items-start justify-end py-6 sm:py-0 sm:justify-center px-6 h-full sm:px-10 duration-300 ease-in-out rounded-lg">
         <span className="lg:text-5xl md:text-4xl text-xl font-bold">
           {splashImageData[bannerIndex]?.title}

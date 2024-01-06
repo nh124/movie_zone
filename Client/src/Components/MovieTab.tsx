@@ -1,53 +1,24 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTab, setCurrentTab } from "../Redux/MovieStatusTabReducer";
-import { setStart, setEnd } from "../Redux/GridSizeIndexReducer";
-import getTopRatedMovies from "../API_PARSER/GetTopRatedMovies";
-import GetUpcomingMovies from "../API_PARSER/GetUpcomingMovies";
+import { setTab } from "../Redux/MovieStatusTabReducer";
+import MovieManagerHook from "../Hooks/MovieManagerHook";
+import { useNavigate } from "react-router-dom";
 
 const MovieTab = () => {
-  const getTopMovies = getTopRatedMovies();
-  const getUpcomingMovies = GetUpcomingMovies();
-  const { Tab } = useSelector((state) => state.MovieStatusTab);
-  const { start, end } = useSelector((state) => state.GridSizeIndex);
+  const { currentList } = useSelector((state) => state.MovieStatusTab);
   const dispatch = useDispatch();
-  const { TrendingMoviePageIndex } = useSelector(
-    (state: any) => state.MovieIndex
-  );
-  const { UpcomingMoviePageIndex } = useSelector(
-    (state: any) => state.MovieIndex
-  );
-  useEffect(() => {
-    if (Tab === "Trending") dispatch(setCurrentTab(getTopMovies));
-    if (Tab === "Upcoming") dispatch(setCurrentTab(getUpcomingMovies));
-  }, [Tab]);
-
-  useEffect(() => {
-    dispatch(setStart(0));
-    dispatch(setEnd(length));
-  }, [Tab]);
-
-  useEffect(() => {
-    dispatch(setCurrentTab(getTopMovies));
-  }, [getTopMovies]);
-
-  useEffect(() => {
-    if (TrendingMoviePageIndex > 1) {
-      dispatch(setCurrentTab(getTopMovies));
-    }
-  }, [TrendingMoviePageIndex]);
-
-  useEffect(() => {
-    if (UpcomingMoviePageIndex > 1) {
-      dispatch(setCurrentTab(getUpcomingMovies));
-    }
-  }, [UpcomingMoviePageIndex, getUpcomingMovies, dispatch]);
-
+  const navigate = useNavigate();
   return (
-    <div className="flex gap-3 sm:text-base text-sm">
+    <div className="flex gap-3 sm:text-base text-sm items-center">
+      <MovieManagerHook dispatch={dispatch} currentList={currentList} />
+      <button
+        onClick={() => navigate("/movies")}
+        className={`bg-gray-800 px-2 rounded-xl shadow-lg hover:scale-105 duration-300 h-[40px]`}
+      >
+        Discover
+      </button>
       <button
         className={`${
-          Tab === "Trending" ? "text-[#AAAAAA]" : "text-[#666666]"
+          currentList === "Trending" ? "text-[#AAAAAA]" : "text-[#666666]"
         }`}
         onClick={() => dispatch(setTab("Trending"))}
       >
@@ -55,18 +26,11 @@ const MovieTab = () => {
       </button>
       <button
         className={`${
-          Tab === "Upcoming" ? "text-[#AAAAAA]" : "text-[#666666]"
+          currentList === "Upcoming" ? "text-[#AAAAAA]" : "text-[#666666]"
         }`}
         onClick={() => dispatch(setTab("Upcoming"))}
       >
         Upcoming
-      </button>
-      <button
-        className={`${
-          Tab === "Now Playing" ? "text-[#AAAAAA]" : "text-[#666666]"
-        }`}
-      >
-        Now Playing
       </button>
     </div>
   );

@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FilterSelector from "./FilterSelector";
 import { setSubmitFilter } from "../Redux/filterReducer";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import MovieFilters from "../Hooks/MovieFilters";
+// import GetDiscover from "../API_PARSER/GetDiscover";
 
 const Filter = ({ showFilters }: { showFilters: boolean }) => {
   const dispatch = useDispatch();
@@ -13,7 +14,6 @@ const Filter = ({ showFilters }: { showFilters: boolean }) => {
   });
   const [order, setOrder] = useState("desc");
   const filterOptions = MovieFilters();
-
   return (
     <div
       className={`w-full h-auto sm:flex flex-row flex-wrap gap-2 py-2 px-2 max-sm:bg-slate-900 rounded-lg ${

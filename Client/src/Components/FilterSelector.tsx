@@ -18,7 +18,7 @@ const FilterSelector = ({
   const genreDict = GenreDict();
   const { filters } = useSelector((state) => state.filters);
   const AddFilter = (addedFiler, selectFilter) => {
-    console.log(addedFiler, selectFilter);
+    // console.log(addedFiler, selectFilter);
     if (alt_name === "genre") {
       const value = Object.keys(Genre).find((key) => Genre[key] === addedFiler);
       dispatch(

@@ -5,6 +5,7 @@ import GridSizeReducer from "./GridSizeReducer";
 import MovieStatusTabReducer from "./MovieStatusTabReducer";
 import MovieStorageReducer from "./MovieStorageReducer";
 import filterReducer from "./filterReducer";
+import NotificationReducer from "./NotificationReducer";
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     MovieStatusTab: MovieStatusTabReducer,
     MovieStorage: MovieStorageReducer,
     filters: filterReducer,
+    Notification: NotificationReducer,
   },
 });

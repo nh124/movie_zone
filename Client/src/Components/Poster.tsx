@@ -1,9 +1,14 @@
 import ScoreCircle from "./ScoreCircle";
+import { useNavigate } from "react-router-dom";
 
 const Poster = ({ movie }) => {
   const ratingAvg = Math.round(movie?.vote_average);
+  const navigate = useNavigate();
   return (
-    <button className="w-full h-full relative justify-between hover:scale-105 duration-300 ease-in-out rounded-md">
+    <button
+      className="w-full h-full relative justify-between hover:scale-105 duration-300 ease-in-out rounded-md overflow-hidden shadow-lg animate-fadeAnimation"
+      onClick={() => navigate(`/movie/${movie.id}`)}
+    >
       <img
         src={movie?.poster_image_url}
         className="w-full h-full object-cover absolute z-0"
@@ -16,10 +21,7 @@ const Poster = ({ movie }) => {
           </div>
         </div>
         <div className="w-full h-fit px-2 py-1 relative z-10 text-white font-bold bg-black/50 text-sm sm:text-base">
-          <span>
-            {movie?.title}
-            {movie?.id}
-          </span>
+          <span>{movie?.title}</span>
         </div>
       </div>
     </button>

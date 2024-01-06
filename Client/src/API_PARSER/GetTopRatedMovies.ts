@@ -8,14 +8,27 @@ const GetTopRatedMovies = () => {
   const { TrendingMoviePageIndex } = useSelector(
     (state: any) => state.MovieIndex
   );
-
+  const filter = (movies) => {
+    const movie_list = [];
+    for (const movie of movies) {
+      if (
+        movie.backdrop_path !== null &&
+        movie.genre_ids.length > 0 &&
+        movie.overview !== ""
+      ) {
+        movie_list.push(movie);
+      }
+    }
+    return movie_list;
+  };
   const getTopRatedMovies = () => {
     getTopRated(TrendingMoviePageIndex)
       .then((response) => {
+        const filteredMovies = filter(response.results);
         if (trendingMovies.length === 1) {
-          setTrendingMovies(response.results);
+          setTrendingMovies(filteredMovies);
         } else if (trendingMovies.length > 1) {
-          setTrendingMovies([...trendingMovies, ...response.results]);
+          setTrendingMovies([...trendingMovies, ...filteredMovies]);
         }
       })
       .catch((error) => {

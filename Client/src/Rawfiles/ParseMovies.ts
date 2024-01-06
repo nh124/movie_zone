@@ -1,7 +1,6 @@
 const ParseMovies = (movie, GenreDictionary) => {
   const image_base_url = import.meta.env.VITE_IMAGE_BASE_URL;
 
-  if (movie.backdrop_path === null || movie.poster_path === null) return;
   const resultParsed = {
     id: movie?.id,
     backdrop_image_url: image_base_url + movie?.backdrop_path,

@@ -9,13 +9,25 @@ import {
   IncrementUpcomingMoviePageIndex,
   IncrementDiscoveryMoviePageIndex,
 } from "../Redux/MovieIndexReducer";
+
 const UpdatePage = ({ currentPage }: { currentPage: string }) => {
   const { start, end } = useSelector((state) => state.GridSizeIndex);
-  const { Tab, currentTab } = useSelector((state) => state.MovieStatusTab);
+  const { currentList, currentTab } = useSelector(
+    (state) => state.MovieStatusTab
+  );
   const { length } = useSelector((state) => state.GridSize);
   const dispatch = useDispatch();
   const setPage = (forward: boolean) => {
-    console.log(currentTab);
+    if (currentPage === "") return;
+    if (currentPage === "discover" || currentPage === "search") {
+      if (forward) {
+        dispatch(setStart(start + length));
+        dispatch(setEnd(end + length));
+      } else if (start > 0) {
+        dispatch(setStart(start - length));
+        dispatch(setEnd(end - length));
+      }
+    }
     if (forward && start + length > currentTab.length) return;
     if (!forward && start - length < 0) return;
 
@@ -23,30 +35,32 @@ const UpdatePage = ({ currentPage }: { currentPage: string }) => {
       dispatch(setStart(start + length));
       dispatch(setEnd(end + length));
 
-      //   if (start + 2 * length > currentTab.length) {
-      //     if (currentPage === "Home") {
-      //       if (Tab === "Trending") dispatch(IncrementTrendingMoviePageIndex());
-      //       if (Tab === "Upcoming") dispatch(IncrementUpcomingMoviePageIndex());
-      //     } else if (currentPage === "Movies") {
-      //       dispatch(IncrementDiscoveryMoviePageIndex());
-      //     }
-      //   }
-
-      if (Tab === "Trending") dispatch(IncrementTrendingMoviePageIndex());
-      if (Tab === "Upcoming") dispatch(IncrementUpcomingMoviePageIndex());
-      if (Tab === "Movies") dispatch(IncrementDiscoveryMoviePageIndex());
+      if (currentPage === "Home") {
+        console.log("Incrementing indexes");
+        if (currentList === "Trending")
+          dispatch(IncrementTrendingMoviePageIndex());
+        if (currentList === "Upcoming")
+          dispatch(IncrementUpcomingMoviePageIndex());
+      }
     } else {
       dispatch(setStart(start - length));
       dispatch(setEnd(end - length));
     }
   };
+
   return (
-    <div className="flex flex-row gap-1">
-      <button onClick={() => setPage(false)}>
-        <MdOutlineKeyboardArrowLeft size={20} />
+    <div className="flex flex-row gap-3 px-3 justify-end py-2">
+      <button
+        onClick={() => setPage(false)}
+        className="w-full sm:w-[100px] py-1 bg-slate-600 flex justify-center rounded-lg hover:scale-105 duration-300 shadow-lg"
+      >
+        <MdOutlineKeyboardArrowLeft size={30} color="white" />
       </button>
-      <button onClick={() => setPage(true)}>
-        <MdOutlineKeyboardArrowRight size={20} />
+      <button
+        onClick={() => setPage(true)}
+        className="w-full sm:w-[100px] py-1 bg-slate-600 flex justify-center rounded-lg hover:scale-105 duration-300 shadow-lg"
+      >
+        <MdOutlineKeyboardArrowRight size={30} color="white" />
       </button>
     </div>
   );

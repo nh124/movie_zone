@@ -1,4 +1,6 @@
 const DateConverter = (date: string) => {
+  // console.log(date);
+  if (date === undefined) return;
   function formatDate(inputDate: string) {
     const months = [
       "January",
@@ -14,7 +16,6 @@ const DateConverter = (date: string) => {
       "November",
       "December",
     ];
-
     const [year, month, day] = inputDate.split("-");
     const formattedDate = `${months[parseInt(month, 10) - 1]} ${parseInt(
       day,

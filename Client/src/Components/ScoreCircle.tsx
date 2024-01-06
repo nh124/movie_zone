@@ -1,16 +1,15 @@
 const ScoreCircle = ({
   percentage,
-
   type,
 }: {
   percentage: number;
-
   type: string;
 }) => {
   const convertedScore = 64 - 64 * (percentage / 100);
   const ScoreCircleColorSelector = {
     Banner: "text-blue-200",
     Poster: "text-green-400",
+    movie_display: "text-blue-200",
   };
   return (
     <div className="w-fit h-full flex justify-start items-center relative">
@@ -43,8 +42,9 @@ const ScoreCircle = ({
         ></circle>
       </svg>
       <span
-        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xs 
-        ${type === "Banner" ? "text-blue-200" : "text-green-400"}
+        className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+        ${type === "movie_display" ? "text-lg" : "text-xs"}
+        ${ScoreCircleColorSelector[type]}
         `}
       >
         {percentage}%

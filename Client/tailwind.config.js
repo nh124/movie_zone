@@ -20,8 +20,8 @@ export default {
           "100%": { transform: "scale(1)" },
         },
         slideAnimation: {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(100%)" },
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
         },
         nodeSlide: {
           "0%": { transform: "translateX(-15px)" },
